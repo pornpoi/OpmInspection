@@ -1,0 +1,64 @@
+﻿@{ 
+    var currentUrl = HttpContext.Current.Request.Url.AbsolutePath;
+    var menu = (OpmInspection.Shared.ViewManager.Menu)ViewBag.Menu;
+}
+
+<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar">
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu">
+        <li class="header">เมนูหลัก</li>
+
+        @foreach (var item in menu.Items)
+        {
+            if (item.Items.Count > 0)
+            {
+                <li class="@(currentUrl == item.Url ? "treeview active" : "treeview")">
+                    <a href="#">
+                        <i class="fa @item.Icon"></i> <span>@item.Title</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+
+                    <ul class="treeview-menu">
+                        @foreach (var subItem in item.Items)
+                        {
+                            <li class="@(currentUrl == subItem.Url ? "active" : string.Empty)">
+                                <a href="@subItem.Url">
+                                    <i class="fa @subItem.Icon"></i> <span>@subItem.Title</span>
+
+                                    @if (subItem.Push != null)
+                                    {
+                                        <small class="label pull-right @subItem.Push.Background">@subItem.Push.Value.ToString("#,###0")</small>
+                                    }
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li class="@(currentUrl == item.Url ? "active" : string.Empty)">
+                    <a href="@item.Url">
+                        <i class="fa @item.Icon"></i> <span>@item.Title</span>
+
+                        @if (item.Push != null)
+                        {
+                            <small class="label pull-right @item.Push.Background">@item.Push.Value.ToString("#,###0")</small>
+                        }
+                    </a>
+                </li>
+            }
+        }
+
+        <!-- link -->
+        <li class="header">บริการของ ส.กกภ.</li>
+        <li>
+            <a href="/" target="_blank">
+                <i class="fa fa-circle-o text-yellow"></i>
+                <span>เว็บไซต์ ส.กกภ.</span>
+            </a>
+        </li>
+    </ul>
+</section>
+<!-- /.sidebar -->

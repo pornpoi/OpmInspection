@@ -1,0 +1,32 @@
+﻿@{ var breadcrumb = (OpmInspection.Shared.ViewManager.Breadcrumb)ViewBag.Breadcrumb; }
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        @ViewBag.Header
+        <small>@ViewBag.HeaderDescription</small>
+    </h1>
+
+    <ol class="breadcrumb">
+        @if (breadcrumb.Items.Count > 0)
+        {
+            <li><a href="/"><i class="fa fa-home"></i> หน้าหลัก</a></li>
+
+            foreach (var item in breadcrumb.Items)
+            {
+                if (item.Link != string.Empty)
+                {
+                    <li><a href="@item.Link">@item.Text</a></li>
+                }
+                else
+                {
+                    <li class="active">@item.Text</li>
+                }
+            }
+        }
+        else
+        {
+            <li class="active"><i class="fa fa-home"></i> หน้าหลัก</li>
+        }   
+    </ol>
+</section>

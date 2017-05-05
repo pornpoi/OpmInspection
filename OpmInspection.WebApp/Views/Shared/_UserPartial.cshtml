@@ -1,0 +1,57 @@
+﻿@{ var currentUser = (OpmInspection.Shared.Models.ApplicationUser)ViewBag.CurrentUser; }
+
+<!-- User Account: style can be found in dropdown.less -->
+<li class="dropdown user user-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <img src="@Url.Content("~/public/images/user.png")" class="user-image" alt="User Image">
+        <span class="hidden-xs">@currentUser.UserName</span>
+    </a>
+
+    <ul class="dropdown-menu">
+        <!-- User image -->
+        <li class="user-header">
+            <img src="@Url.Content("~/public/images/user.png")" class="img-circle" alt="User Image">
+            <p>
+                @currentUser.Email<br />
+                @currentUser.UserName<br />
+                <small>ลงทะเบียนเมื่อ: @currentUser.CreatedAt.ToString("d MMM yyyy", new System.Globalization.CultureInfo("th-TH"))</small>
+            </p>
+        </li>
+
+        <!-- Menu Body -->
+        <!-- <li class="user-body">
+            <div class="row">
+                <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                </div>
+            </div> -->
+        <!-- /.row -->
+        <!-- </li> -->
+        <!-- Menu Footer-->
+        <li class="user-footer">
+            <div class="pull-left">
+                <button type="button" class="btn btn-default btn-flat"
+                    onclick="javascript:window.location.href='@Url.Action("Details", "User", new { Id = currentUser.Id })';">
+                    <i class="fa fa-user"></i> ข้อมูลผู้ใช้งาน
+                </button>
+            </div>
+            <div class="pull-right">
+                @using (Html.BeginForm("LogOff", "Auth", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <button type="button" class="btn btn-default btn-flat" 
+                        onclick="var result = confirm('คุณต้องการออกจากระบบใช่ไหม ?'); if (result) { document.getElementById('logoutForm').submit(); }">
+                        <i class="fa fa-sign-out"></i> ออกจากระบบ
+                    </button>
+                }
+            </div>
+        </li>
+    </ul>
+</li>

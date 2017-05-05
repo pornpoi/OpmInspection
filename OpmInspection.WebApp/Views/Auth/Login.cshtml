@@ -1,0 +1,137 @@
+﻿@using OpmInspection.WebApp.ViewModels
+@model LoginViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "ลงชื่อเข้าใช้งานระบบ";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewBag.Title - ส.กกภ.</title>
+
+    <!-- Bootstrap Core CSS -->
+    @Styles.Render("~/css/bootstrap")
+    @Styles.Render("~/css/miscellaneous")
+
+    <!-- Font-Awesome Fonts -->
+    @Styles.Render("~/css/font-awesome")
+
+    <!-- AdminLTE Theme -->
+    @Styles.Render("~/css/adminlte")
+
+    <!-- My Custom CSS -->
+    @Styles.Render("~/css/auth")
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition login-page" style="height: initial;">
+    <header>
+        <div class="progress progress-xxs active">
+            <div id="progress" class="progress-bar progress-bar-primary progress-bar-striped"
+                    style="width: 100%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" role="progressbar">
+                <span class="sr-only">100% Complete</span>
+            </div>
+        </div>
+    </header>
+    <!-- /header -->
+
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="/"><b>ส.กกภ.</b></a>
+        </div>
+        <!-- /.login-logo -->
+
+        <div class="login-box-body">
+            <div class="login-logo">
+                <img src="@Url.Content("~/public/images/opm-logo.png")" class="img-circle img-responsive" style="width: 166px; height: 166px;" alt="OPM logo" />
+                <b>เจ้าหน้าที่</b>
+            </div>
+            <!-- /.login-logo -->
+
+            @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { @role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "บัญชีผู้ใช้", @required = "true", @autocomplete = "off" })
+                    <span class="fa fa-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "รหัสผ่าน", @required = "true" })
+                    <span class="fa fa-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(m => m.RememberMe) จดจำฉันไว้ในระบบ
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat" value="Login">
+                            Sign-in <i class="fa fa-sign-in"></i>
+                        </button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            }
+
+            <a href="@Url.Action("ForgotPassword", "Auth")">ลืมรหัสผ่าน ?</a>
+        </div>
+
+        @if (!Html.ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" aria-hidden="true" data-dismiss="alert" data-tooltip="true" title="Close">×</button>
+                <h4>ไม่สามารถเข้าสู่ระบบได้!</h4>
+                @Html.ValidationSummary()
+            </div>
+        }
+    </div>
+    <!-- /.login-box-body -->
+
+    <div class="btn-group selector">
+        <button id="previous" type="button" data-selected="0" class="btn btn-flat">
+            <i class="fa fa-angle-left"></i>
+        </button>
+        <button id="next" type="button" data-selected="0" class="btn btn-flat">
+            <i class="fa fa-angle-right"></i>
+        </button>
+    </div>
+
+    <footer class="footer">
+        <p class="muted credit text-right">
+            <a id="copyrightlink" href="" target="_blank">
+                <i class="fa fa-camera fa-fw margin-r-xs"></i><span id="copyright"></span>
+            </a>
+        </p>
+    </footer>
+    <!-- /footer -->
+
+    <!-- jQuery -->
+    @Scripts.Render("~/bundles/jquery")
+
+    <!-- Bootstrap Core JavaScript -->
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <!-- jQuery waitforimages JavaScript -->
+    @Scripts.Render("~/bundles/waitforimages")
+
+    <!-- Custom JavaScript -->
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/auth")
+</body>
+</html>

@@ -1,0 +1,89 @@
+﻿@{ var currentUser = (OpmInspection.Shared.Models.ApplicationUser)ViewBag.CurrentUser; }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewBag.Title - ส.กกภ.</title>
+
+    <!-- Bootstrap Core CSS -->
+    @Styles.Render("~/css/bootstrap")
+    @Styles.Render("~/css/miscellaneous")
+
+    <!-- Font-Awesome Fonts -->
+    @Styles.Render("~/css/font-awesome")
+
+    <!-- AdminLTE Theme -->
+    @Styles.Render("~/css/adminlte")
+
+    <!-- Custom Styles -->
+    @RenderSection("Styles", required: false)
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition @currentUser.Skin.ClassName sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Header Brand -->
+            @Html.Partial("_BrandPartial")
+
+            <!-- Header Navbar: style can be found in header.less -->
+            @Html.Partial("_NavbarPartial")
+        </header>
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            @Html.Partial("_MenuPartial")
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @Html.Partial("_HeaderPartial")
+
+            <!-- Main content -->
+            <section class="content">
+                @RenderBody()
+            </section>
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            @Html.Partial("_FooterPartial")
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            @Html.Partial("_SidebarPartial")
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placedimmediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    @Scripts.Render("~/bundles/jquery")
+
+    <!-- Bootstrap Core JavaScript -->
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <!-- AdminLTE App -->
+    @Scripts.Render("~/bundles/adminlte")
+
+    <!-- Custom Scripts -->
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
